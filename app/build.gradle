@@ -1,0 +1,90 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion androidCompileSdkVersion
+    defaultConfig {
+        applicationId "ir.javadhashemi.daggertutorial"
+        minSdkVersion androidMinSdkVersion
+        targetSdkVersion androidTargetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    //----------------/ Common libraries \-----------------
+    implementation common.anko_common
+    implementation common.persian_date_picker
+    //-----------------------------------------------------
+
+    //----------------/ support libraries \----------------
+    implementation android_support.appCompat
+    implementation android_support.design
+    implementation android_support.cardView
+    implementation android_support.constraintLayout
+    //-----------------------------------------------------
+
+    //----------------/ Android Arch \---------------------
+    implementation androidArch.LifeCycle
+    kapt androidArch.archCompiler
+    implementation androidArch.ReactiveStreams
+    //-----------------------------------------------------
+
+    //----------------/ Room \-----------------------------
+    implementation room.room
+    kapt room.compiler
+    implementation room.rx_converter
+    //-----------------------------------------------------
+
+    //----------------/ Retrofit \-------------------------
+    implementation retrofit.retrofit
+    implementation retrofit.converter_gson
+    implementation retrofit.adapter_rx
+    implementation retrofit.okHttpInterceptor
+    //-----------------------------------------------------
+
+    //----------------/ Rx Libs \--------------------------
+    implementation RX.rxjava
+    implementation RX.rxAndroid
+    //-----------------------------------------------------
+
+    //----------------/ Dagger Libs \----------------------
+    implementation dagger.dagger_android
+    implementation dagger.dagger_support
+    kapt dagger.dagger_compiler
+    kapt dagger.dagger_processor
+    //-----------------------------------------------------
+
+    //----------------/ Test Libs \------------------------
+    testImplementation testDependencies.junit
+    testImplementation testDependencies.mockitoKotlin
+    testImplementation testDependencies.archTesting
+    androidTestImplementation testDependencies.testRunner
+    androidTestImplementation testDependencies.esperesso
+    //-----------------------------------------------------
+}
